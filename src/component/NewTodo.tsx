@@ -1,19 +1,19 @@
-import React from "react"
+import React,{useContext} from "react"
 import { useRef } from "react";
 import classes from './NewTodo.module.css';
+import TodoContext from '../store/todo-context';
 
-const NewTodo:React.FC<{addTodoList : (parm:string) => void}> = (props) => {
+const NewTodo:React.FC = () => {
+
+    const context =  useContext(TodoContext)
     const todoRef = useRef<HTMLInputElement>(null);
     const submitHandler =  (event:React.FormEvent) => {
         event.preventDefault();
-        
        const todo = todoRef.current!.value;
-
        if(todo.trim().length === 0){
             return;
        }
-
-       props.addTodoList(todo);
+       context.addTodo(todo);
     }
 
     return (
